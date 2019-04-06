@@ -21,12 +21,18 @@ export default class Main extends Component {
     navigator.push({name: 'ORDERHISTORY'})
 
   }
+  
   closeControlPanel = () => {
     this._drawer.close()
   };
+
   openControlPanel = () => {
     this._drawer.open()
   };
+
+  // componentDidMount() {
+  //   this._drawer.open()
+  // }
   render(){
     const {navigator} = this.props;
     return(
