@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Dimensions,
   Image,
+  TouchableOpacity,
 } from 'react-native';
 
 
@@ -14,6 +15,10 @@ import sp3 from '../../../../Media/temp/sp3.jpeg';
 import sp4 from '../../../../Media/temp/sp4.jpeg';
 
 export default class TopProduct extends Component{
+  gotoDetail() {
+    const { navigator } = this.props;
+    navigator.push({ name: 'PRODUCT_DETAIL' });
+  }
   render() {
     const {
       container, titleContainer, title,
@@ -26,27 +31,27 @@ export default class TopProduct extends Component{
           <Text style={title}>Top Product</Text>
         </View>
         <View style={body}>
-          <View style={productContainer}>
+          <TouchableOpacity style={productContainer} onPress={this.gotoDetail.bind(this)}>
             <Image source={sp1} style={productImage} />
             <Text style={productName}>Name</Text>
             <Text style={productPrice}>400$</Text>
-          </View>
-          <View style={productContainer}>
+          </TouchableOpacity>
+          <TouchableOpacity style={productContainer} onPress={this.gotoDetail.bind(this)}>
             <Image source={sp2} style={productImage} />
             <Text style={productName}>...</Text>
             <Text style={productPrice}>...</Text>
-          </View>
+          </TouchableOpacity>
           <View style={{height:10,width:width}}></View>
-          <View style={productContainer}>
+          <TouchableOpacity style={productContainer} onPress={this.gotoDetail.bind(this)}>
             <Image source={sp3} style={productImage} />
             <Text style={productName}>...</Text>
             <Text style={productPrice}>...</Text>
-          </View>
-          <View style={productContainer}>
+          </TouchableOpacity>
+          <TouchableOpacity style={productContainer} onPress={this.gotoDetail.bind(this)}>
             <Image source={sp4} style={productImage} />
             <Text style={productName}>...</Text>
             <Text style={productPrice}>...</Text>
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
     )

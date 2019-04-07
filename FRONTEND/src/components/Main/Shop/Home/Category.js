@@ -1,12 +1,23 @@
 import React, { Component } from 'react'
-import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
+import {
+  View, Text, Image,
+  StyleSheet, Dimensions,
+  TouchableOpacity,
+} from 'react-native';
 import Swiper from 'react-native-swiper';
+
 import littleIcon from '../../../../Media/temp/little.jpg';
 import miniIcon from '../../../../Media/temp/mini.jpg';
 import partyIcon from '../../../../Media/temp/party.jpg';
+
 const { width, height } = Dimensions.get('window');
 
 export default class Category extends Component{
+  
+  gotoListProduct() {
+    const { navigator } = this.props;
+    navigator.push({ name: 'LIST_PRODUCT' });
+  }
   
   render() {
     const { wrapper,imageStyle,textStyle,cateTitle } = styles;
@@ -17,15 +28,25 @@ export default class Category extends Component{
         </View>
         <View style={{ flex: 4 }}>
           <Swiper showsButtons={true}>
-            <Image source={littleIcon} style={imageStyle}>
-              <Text style={cateTitle}>Little Dress</Text>
-            </Image>
-            <Image source={miniIcon} style={imageStyle}>
-            <Text style={cateTitle}>Mini Dress</Text>
-            </Image>
-            <Image source={partyIcon} style={imageStyle}>
-            <Text style={cateTitle}>Party Dress</Text>
-            </Image>
+            
+            <TouchableOpacity onPress={this.gotoListProduct.bind(this)}>
+              <Image source={littleIcon} style={imageStyle}>
+                <Text style={cateTitle}>Little Dress</Text>
+              </Image>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={this.gotoListProduct.bind(this)}>
+              <Image source={miniIcon} style={imageStyle}>
+                <Text style={cateTitle}>Mini Dress</Text>
+              </Image>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={this.gotoListProduct.bind(this)}>
+              <Image source={partyIcon} style={imageStyle}>
+                <Text style={cateTitle}>Party Dress</Text>
+              </Image>
+            </TouchableOpacity>
+
           </Swiper>
         </View>
       </View>

@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
-import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
+import {
+  View, Text, Image, StyleSheet,
+  Dimensions, TouchableOpacity
+} from 'react-native';
 import bannerImage from '../../../../Media/temp/banner.jpg'
 
-const { width, height } = Dimensions.get('window');
+
 
 export default class Collection extends Component{
   
@@ -20,6 +23,8 @@ export default class Collection extends Component{
     )
   }
 }
+
+const { width, height } = Dimensions.get('window');
 const imageWidth = width - 40;
 const imageHeight = (imageWidth / 933) * 465;
 const styles = StyleSheet.create({
