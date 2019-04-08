@@ -6,12 +6,9 @@ import {
 } from 'react-native';
 import Swiper from 'react-native-swiper';
 
-import littleIcon from '../../../../Media/temp/little.jpg';
-import miniIcon from '../../../../Media/temp/mini.jpg';
-import partyIcon from '../../../../Media/temp/party.jpg';
 
 const { width, height } = Dimensions.get('window');
-
+const url = 'http://192.168.64.2/MyShop/api/images/type/';
 export default class Category extends Component{
   
   gotoListProduct() {
@@ -20,6 +17,7 @@ export default class Category extends Component{
   }
   
   render() {
+    const { types } = this.props;
     const { wrapper,imageStyle,textStyle,cateTitle } = styles;
     return (
       <View style={wrapper}>
@@ -28,24 +26,13 @@ export default class Category extends Component{
         </View>
         <View style={{ flex: 4 }}>
           <Swiper showsButtons={true}>
-            
-            <TouchableOpacity onPress={this.gotoListProduct.bind(this)}>
-              <Image source={littleIcon} style={imageStyle}>
-                <Text style={cateTitle}>Little Dress</Text>
-              </Image>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={this.gotoListProduct.bind(this)}>
-              <Image source={miniIcon} style={imageStyle}>
-                <Text style={cateTitle}>Mini Dress</Text>
-              </Image>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={this.gotoListProduct.bind(this)}>
-              <Image source={partyIcon} style={imageStyle}>
-                <Text style={cateTitle}>Party Dress</Text>
-              </Image>
-            </TouchableOpacity>
+            {types.map(e => (
+              <TouchableOpacity onPress={this.gotoListProduct.bind(this)} key={e.id}>
+                <Image source={{uri:`${url}${e.image}` }} style={imageStyle}>
+                  <Text style={cateTitle}>{e.name}</Text>
+                </Image>
+              </TouchableOpacity>
+            ))}
 
           </Swiper>
         </View>

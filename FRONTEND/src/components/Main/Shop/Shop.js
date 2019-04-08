@@ -26,7 +26,23 @@ import contactIcon from '../../../Media/appIcon/contact0.png';
 export default class Shop extends Component {
   constructor(props){
     super(props);
-    this.state = {selectedTab: 'home'};
+    this.state = {
+      selectedTab: 'home',
+      types: [], 
+      topProducts:[],
+    };
+  }
+
+  componentDidMount() {
+    fetch('http://192.168.64.2/MyShop/api')
+      .then(res => res.json())
+      .then(resJSON => {
+        const { type, product } = resJSON;
+        this.setState({
+          types: type,
+          topProducts: product,
+        })
+      });
   }
 
   openMenu(){
@@ -34,7 +50,9 @@ export default class Shop extends Component {
     open();
   }
 
-  render(){
+  render() {
+    const { iconStyle } = styles;
+    const { types,topProducts } = this.state;
     return(
       <View style={{flex:1, backgroundColor:'#86AAEE'}}>
 
@@ -50,7 +68,7 @@ export default class Shop extends Component {
             onPress={() => this.setState({ selectedTab: 'home' })}
             selectedTitleStyle={{color: '#34B089'}}
           >
-            <Home />
+            <Home types={types} topProducts={topProducts}/>
           </TabNavigator.Item>
 
           <TabNavigator.Item
