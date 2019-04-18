@@ -5,10 +5,10 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Swiper from 'react-native-swiper';
-
+import Constant from "../../../DatabaseConfig"
 
 const { width, height } = Dimensions.get('window');
-const url = 'http://192.168.64.2/MyShop/api/images/type/';
+const url = "http://"+Constant.SERVER_IP+"/MyShop/api/images/type/";
 export default class Category extends Component{
   
   gotoListProduct() {

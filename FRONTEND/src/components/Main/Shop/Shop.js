@@ -7,6 +7,7 @@ import {
   Image,
   StyleSheet
 } from 'react-native';
+import  Constant from "../../DatabaseConfig.js";
 import TabNavigator from 'react-native-tab-navigator';
 import Home from './Home/Home';
 import Cart from './Cart/Cart';
@@ -23,6 +24,8 @@ import searchIconS from '../../../Media/appIcon/search.png';
 import searchIcon from '../../../Media/appIcon/search0.png';
 import contactIconS from '../../../Media/appIcon/contact.png';
 import contactIcon from '../../../Media/appIcon/contact0.png';
+
+var API_link = "http://" + Constant.SERVER_IP + "/MyShop/api";
 export default class Shop extends Component {
   constructor(props){
     super(props);
@@ -34,7 +37,7 @@ export default class Shop extends Component {
   }
 
   componentDidMount() {
-    fetch('http://192.168.64.2/MyShop/api')
+    fetch(API_link)
       .then(res => res.json())
       .then(resJSON => {
         const { type, product } = resJSON;
