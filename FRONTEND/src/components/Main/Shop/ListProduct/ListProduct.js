@@ -25,11 +25,13 @@ export default class ListProduct extends Component {
   }
 
   render() {
+
     const { container, wrapper, header, backStyle,
       titleStyle, productContainer,
       productInfo, lastRowInfo, productImage,
       txtName, txtMaterial, txtPrice, txtShowDetail
     } = styles;
+
     return (
       <View style={container}>
         <ScrollView style={wrapper}>

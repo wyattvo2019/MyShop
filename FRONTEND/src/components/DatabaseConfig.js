@@ -1,4 +1,4 @@
 const Constant = {
-    SERVER_IP :"10.10.31.134",
+    SERVER_IP :"192.168.1.73",
 }
 export default Constant;
