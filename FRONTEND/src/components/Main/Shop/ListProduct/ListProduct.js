@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import { 
   Text, View,
   TouchableOpacity,
@@ -7,9 +8,9 @@ import {
   Image,
   Dimensions
 } from 'react-native';
+
 import backList from '../../../../Media/appIcon/backList.png';
 import sp1 from '../../../../Media/temp/sp1.jpeg';
-
 
 
 export default class ListProduct extends Component {
@@ -42,7 +43,7 @@ export default class ListProduct extends Component {
             <View style={{width:30}}/>
           </View>
 
-          <View style={productContainer}>
+          <TouchableOpacity style={productContainer} onPress={this.gotoDetail.bind(this)}>
             <Image style={productImage} source={sp1}/>
             <View style={productInfo}>
               <Text style={txtName}>Lace Sleeve Si</Text>
@@ -56,9 +57,9 @@ export default class ListProduct extends Component {
                 </TouchableOpacity>
               </View>
             </View>
-          </View>
+          </TouchableOpacity>
 
-          <View style={productContainer}>
+          <TouchableOpacity style={productContainer} onPress={this.gotoDetail.bind(this)}>
             <Image style={productImage} source={sp1}/>
             <View style={productInfo}>
               <Text style={txtName}>Lace Sleeve Si</Text>
@@ -72,25 +73,10 @@ export default class ListProduct extends Component {
                 </TouchableOpacity>
               </View>
             </View>
-          </View>
+          </TouchableOpacity>
 
-          <View style={productContainer}>
-            <Image style={productImage} source={sp1}/>
-            <View style={productInfo}>
-              <Text style={txtName}>Lace Sleeve Si</Text>
-              <Text style={txtMaterial}>Chat lieu</Text>
-              <Text style={txtPrice}>117$</Text>
-              <View style={lastRowInfo}>
-                <Text>ColorRoyal Blue</Text>
-                <View style={{backgroundColor:'cyan', height:16, width:16, borderRadius:8}} />
-                <TouchableOpacity>
-                  <Text>Show detail</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
 
-          <View style={productContainer}>
+          <TouchableOpacity style={productContainer} onPress={this.gotoDetail.bind(this)}>
             <Image style={productImage} source={sp1}/>
             <View style={productInfo}>
               <Text style={txtName}>Lace Sleeve Si</Text>
@@ -104,7 +90,23 @@ export default class ListProduct extends Component {
                 </TouchableOpacity>
               </View>
             </View>
-          </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={productContainer} onPress={this.gotoDetail.bind(this)}>
+            <Image style={productImage} source={sp1}/>
+            <View style={productInfo}>
+              <Text style={txtName}>Lace Sleeve Si</Text>
+              <Text style={txtMaterial}>Chat lieu</Text>
+              <Text style={txtPrice}>117$</Text>
+              <View style={lastRowInfo}>
+                <Text>ColorRoyal Blue</Text>
+                <View style={{backgroundColor:'cyan', height:16, width:16, borderRadius:8}} />
+                <TouchableOpacity>
+                  <Text>Show detail</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </TouchableOpacity>
 
         </ScrollView>    
       </View>

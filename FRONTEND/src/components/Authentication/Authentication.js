@@ -98,8 +98,12 @@ export default class Authentication extends Component {
             <Text style={titleStyle}>Wearing a Dress</Text>
             <Image source={icLogo} style={iconStyle}/>
         </View>
+
+
         {this.state.isSignIn ? signInJSX : signUpJSX}
         {this.state.isSignIn ? signInBtnJSX : signUpBtnJSX}
+
+        
       </View>
     );
   }

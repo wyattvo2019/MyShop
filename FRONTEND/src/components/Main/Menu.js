@@ -8,6 +8,7 @@ import {
 
 } from 'react-native';
 import profileIcon from './../../Media/temp/profile.png';
+
 export default class Menu extends Component {
   constructor(props) {
     super(props);

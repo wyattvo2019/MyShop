@@ -22,6 +22,7 @@ export default class TopProduct extends Component{
       
     }
   }
+  
   gotoDetail(product) {
     const { navigator } = this.props;
     navigator.push({ name: 'PRODUCT_DETAIL', product });
@@ -40,18 +41,6 @@ export default class TopProduct extends Component{
         <View style={titleContainer}> 
           <Text style={title}>Top Product</Text>
         </View>
-
-        {/* <ListView
-          contentContainerStyle={body}
-          dataSource={this.state.dataSource}
-          renderRow={product => (
-            <TouchableOpacity style={productContainer} onPress={this.gotoDetail.bind(this)}>
-              <Image source={sp3} style={productImage} />
-              <Text style={productName}>...</Text>
-              <Text style={productPrice}>...</Text>
-            </TouchableOpacity>
-          )}
-        /> */}
 
         <View style={body}>
           {this.props.topProducts.map(e => (
