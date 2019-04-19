@@ -8,8 +8,8 @@ import {
   TouchableOpacity,
   ListView,
 } from 'react-native';
-
-const url = 'http://192.168.64.2/MyShop/api/images/product/';
+import Constant from "../../../DatabaseConfig";
+const url = "http://"+Constant.SERVER_IP+"/MyShop/api/images/product/";
 
 
 export default class TopProduct extends Component{
