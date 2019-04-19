@@ -3,10 +3,8 @@ import {
     View, Text, StyleSheet, Image, Dimensions, ScrollView, TouchableOpacity 
 } from 'react-native';
 
-import img1 from '../../../../Media/temp/sp5.jpeg';
-import img2 from '../../../../Media/temp/sp4.jpeg';
 import Constant from "../../../DatabaseConfig";
-
+import global from "../../../global";
 const back = require('../../../../Media/appIcon/back.png');
 const cart = require('../../../../Media/appIcon/cartfull.png');
 
@@ -14,10 +12,17 @@ const url = "http://"+Constant.SERVER_IP+"/MyShop/api/images/product/";
 
 
 export default class ProductDetail extends Component {
+    
     goBack() {
         const { navigator } = this.props;
         navigator.pop();
     }
+
+    addThisProductToCart() {
+        const { product } = this.props;
+        global.addProductToCart(product);
+    }
+
     render() {
         const {
             wrapper, cardStyle, header,
@@ -26,15 +31,15 @@ export default class ProductDetail extends Component {
             textSmoke, textHighlight, textMain, titleContainer,
             descContainer, productImageStyle, descStyle, txtMaterial, txtColor
         } = styles;
-       const { name, id, price, color, material, description, images } = this.props.product;
+        const { name, id, price, color, material, description, images } = this.props.product;
         return (
-            <View style={wrapper}>
+            <ScrollView style={wrapper}>
                 <View style={cardStyle}>
                     <View style={header}>
                         <TouchableOpacity onPress={this.goBack.bind(this)}>
                             <Image style={backStyle} source={back} />
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={this.addThisProductToCart.bind(this)}>
                             <Image style={cartStyle} source={cart} />
                         </TouchableOpacity>
                     </View>
@@ -64,7 +69,7 @@ export default class ProductDetail extends Component {
                         </View>
                     </View>
                 </View>
-            </View>
+            </ScrollView>
         );
     }
 }

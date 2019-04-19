@@ -14,7 +14,7 @@ import Cart from './Cart/Cart';
 import Search from './Search/Search';
 import Contact from './Contact/Contact';
 import Header from './Header';
-
+import global from '../../global.js';
 
 import homeIconS from '../../../Media/appIcon/home.png';
 import homeIcon from '../../../Media/appIcon/home0.png';
@@ -32,8 +32,14 @@ export default class Shop extends Component {
     this.state = {
       selectedTab: 'home',
       types: [], 
-      topProducts:[],
+      topProducts: [],
+      cartArray: [],
     };
+    global.addProductToCart = this.addProductToCart.bind(this);
+  }
+
+  addProductToCart(product) {
+    this.setState({cartArray: this.state.cartArray.concat(product)})
   }
 
   componentDidMount() {
@@ -55,7 +61,7 @@ export default class Shop extends Component {
 
   render() {
     const { iconStyle } = styles;
-    const { types,topProducts } = this.state;
+    const { types,topProducts, cartArray } = this.state;
     return(
       <View style={{flex:1, backgroundColor:'#86AAEE'}}>
 
@@ -79,11 +85,11 @@ export default class Shop extends Component {
             title="CART"
             renderIcon={() => <Image source={cartIcon} style={styles.iconStyle}/>}
             renderSelectedIcon={() => <Image source={cartIconS} style={styles.iconStyle} />}
-            badgeText="1"
+            badgeText={cartArray.length}
             onPress={() => this.setState({ selectedTab: 'cart' })}
             selectedTitleStyle={{color: '#34B089'}}
           >
-            <Cart />
+            <Cart cartArray={cartArray}/>
           </TabNavigator.Item>
 
           <TabNavigator.Item
