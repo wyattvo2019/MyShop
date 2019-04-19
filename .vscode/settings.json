@@ -1,0 +1,13 @@
+{
+  "editor.colorDecorators": false,
+  "editor.fontLigatures": true,
+  "editor.fontSize": 15,
+  "editor.formatOnType": true,
+  "editor.find.globalFindClipboard": true,
+  "editor.find.autoFindInSelection": true,
+  "editor.cursorSmoothCaretAnimation": true,
+  "editor.wordWrapColumn": 60,
+  "editor.wrappingIndent": "none",
+  "editor.fontFamily": "Arial, Monaco, 'Courier New', monospace",
+  "editor.minimap.enabled": false
+}
