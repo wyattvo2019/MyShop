@@ -7,14 +7,16 @@ import {
   Image,
   StyleSheet
 } from 'react-native';
-import  Constant from "../../DatabaseConfig.js";
 import TabNavigator from 'react-native-tab-navigator';
 import Home from './Home/Home';
 import Cart from './Cart/Cart';
 import Search from './Search/Search';
 import Contact from './Contact/Contact';
 import Header from './Header';
-import global from '../../global.js';
+import initData from '../../../api/initData';
+import saveCart from '../../../api/saveCart';
+import getCart from '../../../api/getCart';
+
 
 import homeIconS from '../../../Media/appIcon/home.png';
 import homeIcon from '../../../Media/appIcon/home0.png';
@@ -25,7 +27,6 @@ import searchIcon from '../../../Media/appIcon/search0.png';
 import contactIconS from '../../../Media/appIcon/contact.png';
 import contactIcon from '../../../Media/appIcon/contact0.png';
 
-var API_link = "http://" + Constant.SERVER_IP + "/MyShop/api";
 export default class Shop extends Component {
   constructor(props){
     super(props);
@@ -39,19 +40,21 @@ export default class Shop extends Component {
   }
 
   addProductToCart(product) {
-    this.setState({cartArray: this.state.cartArray.concat(product)})
+    this.setState({ cartArray: this.state.cartArray.concat({product, quatity: 1}) });
+    saveCart(this.state.cartArray);
   }
 
   componentDidMount() {
-    fetch(API_link)
-      .then(res => res.json())
-      .then(resJSON => {
-        const { type, product } = resJSON;
-        this.setState({
-          types: type,
-          topProducts: product,
-        })
+    initData()
+    .then(resJSON => {
+      const { type, product } = resJSON;
+      this.setState({
+        types: type,
+        topProducts: product,
       });
+    });
+    getCart()
+    .then(cartArray => this.setState({cartArray}));
   }
 
   openMenu(){

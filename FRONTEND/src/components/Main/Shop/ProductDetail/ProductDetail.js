@@ -5,10 +5,11 @@ import {
 
 import Constant from "../../../DatabaseConfig";
 import global from "../../../global";
+
+
 const back = require('../../../../Media/appIcon/back.png');
 const cart = require('../../../../Media/appIcon/cartfull.png');
-
-const url = "http://"+Constant.SERVER_IP+"/MyShop/api/images/product/";
+const url = "http://" + Constant.SERVER_IP + "/MyShop/api/images/product/";
 
 
 export default class ProductDetail extends Component {
