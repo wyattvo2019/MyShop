@@ -26,7 +26,7 @@ export default class ProductDetail extends Component {
             textSmoke, textHighlight, textMain, titleContainer,
             descContainer, productImageStyle, descStyle, txtMaterial, txtColor
         } = styles;
-    //    const { name, id, price, color, material, description, images } = this.props.product;
+       const { name, id, price, color, material, description, images } = this.props.product;
         return (
             <View style={wrapper}>
                 <View style={cardStyle}>
