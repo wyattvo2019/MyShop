@@ -36,7 +36,6 @@ export default class Main extends Component {
   render(){
     const {navigator} = this.props;
     return(
-      // <View style={{flex:1,backgroundColor:"yellow"}}>
         <Drawer
           ref={(ref) => this._drawer = ref}
           tapToClose={true}
@@ -46,17 +45,6 @@ export default class Main extends Component {
           <Shop open={this.openControlPanel.bind(this)} />
         </Drawer>
 
-        // {/* <Text>Main Page</Text>
-        // <TouchableOpacity onPress={this.gotoAuthentication.bind(this)}>
-        //   <Text>Go to AUTHENTICATION</Text>
-        // </TouchableOpacity>
-        // <TouchableOpacity onPress={this.gotoChangeInfo.bind(this)}>
-        //   <Text>Go to ChangeInfo</Text>
-        // </TouchableOpacity>
-        // <TouchableOpacity onPress={this.gotoOrderHistory.bind(this)}>
-        //   <Text>Go to OrderHistory</Text>
-        // </TouchableOpacity> */}
-      // </View>
     );
   }
 }

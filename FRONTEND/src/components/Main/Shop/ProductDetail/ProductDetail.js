@@ -4,11 +4,11 @@ import {
 } from 'react-native';
 
 import Constant from "../../../DatabaseConfig";
-import global from "../../../global";
+import global  from '../../../global';
 
 
 const back = require('../../../../Media/appIcon/back.png');
-const cart = require('../../../../Media/appIcon/cartfull.png');
+const cart = require('../../../../Media/appIcon/cartfull.png'); 
 const url = "http://" + Constant.SERVER_IP + "/MyShop/api/images/product/";
 
 

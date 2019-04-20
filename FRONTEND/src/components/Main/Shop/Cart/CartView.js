@@ -4,6 +4,7 @@ import {
     Dimensions, StyleSheet, Image, ListView, 
 } from 'react-native';
 import Constant from "../../../DatabaseConfig";
+import global from '../../../global';
 
 
 const url = "http://"+Constant.SERVER_IP+"/MyShop/api/images/product/";
@@ -16,9 +17,13 @@ function toTitleCase(str) {
 
 export default class CartView extends Component {
 
-    gotoDetail() {
+    incrQuatity(id) {
+        global.incrQuatity(id);
+    }
+
+    gotoDetail(product) {
         const { navigator } = this.props;
-        navigator.push({ name: 'PRODUCT_DETAIL' });
+        navigator.push({ name: 'PRODUCT_DETAIL',product });
     }
 
     render() {
@@ -26,13 +31,16 @@ export default class CartView extends Component {
             productStyle, mainRight, productController,
             txtName, txtPrice, productImage, numberOfProduct, 
             txtShowDetail, showDetailContainer } = styles;
-        const {cartArray } = this.props;
+        
+        const { cartArray } = this.props;
+        
         return (
             <View style={wrapper}>
                 
                 <ListView
+                    contentContainerStyle={main}
                     enableEmptySections
-                    dataSource={new ListView.DataSource({rowHasChanged: (r1,r2)=> r1!==r2}).cloneWithRows(cartArray)}
+                    dataSource={new ListView.DataSource({rowHasChanged: (r1,r2)=> r1 !== r2}).cloneWithRows(cartArray)}
                     renderRow={
                         cartItem => (
                             <View style={productStyle} >
@@ -49,7 +57,7 @@ export default class CartView extends Component {
                                     </View>
                                     <View style={productController}>
                                         <View style={numberOfProduct}>
-                                            <TouchableOpacity>
+                                            <TouchableOpacity onPress={()=>this.incrQuatity(cartItem.product.id)}>
                                                 <Text>+</Text>
                                             </TouchableOpacity>
                                             <Text>{cartItem.quatity}</Text>

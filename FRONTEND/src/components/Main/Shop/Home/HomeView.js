@@ -6,7 +6,9 @@ import TopProduct from './TopProduct';
  
 export default class HomeView extends Component{
   render() {
+
     const { types, topProducts } = this.props;
+
     return(
       <ScrollView style={{flex:1,backgroundColor:'#EEE'}}>
         <Collection navigator={this.props.navigator}/>
@@ -14,5 +16,6 @@ export default class HomeView extends Component{
         <TopProduct navigator={this.props.navigator} topProducts={topProducts}/>
       </ScrollView>
     )
+    
   }
 }

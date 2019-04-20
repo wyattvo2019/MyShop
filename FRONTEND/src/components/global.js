@@ -1,3 +1,4 @@
-module.export = {
-  addProductToCart: null
+module.exports = {
+  addProductToCart: null,
+  incrQuatity: null,
 };

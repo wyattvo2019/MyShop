@@ -20,9 +20,9 @@ export default class ListProduct extends Component {
     navigator.pop();
   }
 
-  gotoDetail() {
+  gotoDetail(product) {
     const { navigator } = this.props;
-    navigator.push({name: 'PRODUCT_DETAIL'})
+    navigator.push({name: 'PRODUCT_DETAIL', product})
   }
 
   render() {

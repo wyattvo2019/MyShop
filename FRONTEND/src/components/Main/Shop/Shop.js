@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
 import { 
   View, 
-  Text, 
-  TouchableOpacity,
-  Dimensions, 
   Image,
-  StyleSheet
+  StyleSheet, 
 } from 'react-native';
 import TabNavigator from 'react-native-tab-navigator';
 import Home from './Home/Home';
@@ -13,6 +10,8 @@ import Cart from './Cart/Cart';
 import Search from './Search/Search';
 import Contact from './Contact/Contact';
 import Header from './Header';
+
+import global from '../../global';
 import initData from '../../../api/initData';
 import saveCart from '../../../api/saveCart';
 import getCart from '../../../api/getCart';
@@ -37,12 +36,8 @@ export default class Shop extends Component {
       cartArray: [],
     };
     global.addProductToCart = this.addProductToCart.bind(this);
-  }
-
-  addProductToCart(product) {
-    this.setState({ cartArray: this.state.cartArray.concat({product, quatity: 1}) });
-    saveCart(this.state.cartArray);
-  }
+    global.incrQuatity          = this.incrQuatity.bind(this);
+  } 
 
   componentDidMount() {
     initData()
@@ -57,6 +52,28 @@ export default class Shop extends Component {
     .then(cartArray => this.setState({cartArray}));
   }
 
+  addProductToCart(product) {
+    this.setState({ cartArray: this.state.cartArray.concat({ product, quatity: 1 }) }, 
+      () => saveCart(this.state.cartArray)
+    ); 
+  }
+ 
+  incrQuatity(productId) { 
+    const newCart = this.state.cartArray.map(e => {
+      if (e => e.product.id !== productId) return e;
+      return { product: e.product, quatity: e.quantity + 1 };      
+    });
+    this.setState({
+      cartArray: newCart
+    });
+  }
+
+  decrQuatity(productId) {
+    
+  }
+
+
+
   openMenu(){
     const {open} = this.props;
     open();
@@ -64,11 +81,12 @@ export default class Shop extends Component {
 
   render() {
     const { iconStyle } = styles;
-    const { types,topProducts, cartArray } = this.state;
+    const { types, topProducts, cartArray } = this.state;
     return(
       <View style={{flex:1, backgroundColor:'#86AAEE'}}>
 
         <Header onOpen={this.openMenu.bind(this)} />
+
         <TabNavigator>
 
           <TabNavigator.Item

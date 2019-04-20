@@ -1,5 +1,5 @@
 import Constant from "../components/DatabaseConfig";
-var API_link = "http://" + Constant.SERVER_IP + "/MyShop/api";
+const API_link = "http://" + Constant.SERVER_IP + "/MyShop/api";
 
 const initData = () => (
   fetch(API_link)
