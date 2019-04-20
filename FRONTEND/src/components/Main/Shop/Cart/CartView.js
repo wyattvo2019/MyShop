@@ -57,7 +57,7 @@ export default class CartView extends Component {
                                     </View>
                                     <View style={productController}>
                                         <View style={numberOfProduct}>
-                                            <TouchableOpacity onPress={()=>this.incrQuatity(cartItem.product.id)}>
+                                            <TouchableOpacity onPress={() => this.incrQuatity(cartItem.product.id)}>
                                                 <Text>+</Text>
                                             </TouchableOpacity>
                                             <Text>{cartItem.quatity}</Text>
