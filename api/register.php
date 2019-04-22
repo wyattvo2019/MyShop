@@ -11,14 +11,18 @@ if($name !='' && $email != '' && $password!=''){
 	$sql = "INSERT INTO users(email,password,name) VALUES('$email','$password','$name')";
 	$result = $mysqli->query($sql);
 	if($result){
-		echo 'THANH_CONG';
+		//echo 'THANH_CONG';
+		// echo JsonHelper::getJson("result",'THANH_CONG');
+
+		echo("{\"result\":\"THANH_CONG\"}");
+
 	}
 	else{
-		echo 'KHONG_THANH_CONG';
-	}
+		echo("{\"result\":\"KHONG_THANH_CONG\"}");
+	};
 }
 else{
-	echo 'KHONG_THANH_CONG';
+	echo("{\"result\":\"KHONG_THANH_CONG\"}");
 }
 
 ?>
