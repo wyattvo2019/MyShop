@@ -3,4 +3,5 @@ module.exports = {
   incrQuatity: null,
   decrQuatity: null,
   removeProduct: null,
+  onSignIn: null,
 };

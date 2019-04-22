@@ -7,48 +7,61 @@ import {
   Image, 
 } from 'react-native';
 
+import global from "../global";
+
 import profileIcon from './../../Media/temp/profile.png';
 
 export default class Menu extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLogedIn:true,
+    //  isLogedIn: false,
+      user:null,
     }
   }
+
+  onSignIn(user) {
+    this.setState({user: user})
+  }
+
   clickLogOut() {
     this.setState({
       isLogedIn:false,
     })
+    global.onSignIn = this.onSignIn.bind(this);
   }
+
   gotoAuthentication(){
     const {navigator} = this.props;
     navigator.push({name: 'AUTHENTICATION'})
 
   }
+
   gotoChangeInfo(){
     const {navigator} = this.props;
     navigator.push({name: 'CHANGE_INFO'})
-
   }
+
   gotoOrderHistory(){
     const {navigator} = this.props;
     navigator.push({name: 'ORDERHISTORY'})
-
   }
   
   render() {
     const { container, profile, btnStyle,
       btnText, btnSignInStyle, loginContainer, username
     } = styles;
+    const { user } = this.state
+    
     const logoutJSX = (
     <TouchableOpacity style={btnStyle}>
       <Text style={btnText} onPress={this.gotoAuthentication.bind(this)}>Sign In</Text>
     </TouchableOpacity>
     );
+    
     const loginJSX = (
       <View style={loginContainer}>
-          <Text style={username}>Vo Tran Quy</Text>
+          <Text style={username}>{user? user.name:""}</Text>
           <View>
             <TouchableOpacity style={btnSignInStyle} onPress={this.gotoOrderHistory.bind(this)}>
               <Text style={btnText}>Order History</Text>
@@ -62,7 +75,8 @@ export default class Menu extends Component {
           </View>
         </View>
     );
-    const mainJSX = this.state.isLogedIn ? loginJSX : logoutJSX;
+
+    const mainJSX = this.state.user ? loginJSX : logoutJSX;
     return(
       <View style={container}>
         <Image source={profileIcon} style={profile} />
