@@ -8,27 +8,27 @@ import {
 } from 'react-native';
 
 import global from "../global";
-
+import saveToken from "../../api/saveToken";
 import profileIcon from './../../Media/temp/profile.png';
-
+// import getToken from '../../api/getToken';
 export default class Menu extends Component {
   constructor(props) {
     super(props);
     this.state = {
-    //  isLogedIn: false,
-      user:null,
-    }
+      //  isLogedIn: false,
+      user: null,
+    };
+    global.onSignIn = this.onSignIn.bind(this);
   }
 
   onSignIn(user) {
-    this.setState({user: user})
+    this.setState({ user });
   }
 
   clickLogOut() {
-    this.setState({
-      isLogedIn:false,
-    })
-    global.onSignIn = this.onSignIn.bind(this);
+    this.setState({ user: null});
+    saveToken(' ');
+  //  .then(a => console.log('AAA', a));
   }
 
   gotoAuthentication(){
@@ -51,7 +51,7 @@ export default class Menu extends Component {
     const { container, profile, btnStyle,
       btnText, btnSignInStyle, loginContainer, username
     } = styles;
-    const { user } = this.state
+    const { user } = this.state;
     
     const logoutJSX = (
     <TouchableOpacity style={btnStyle}>
@@ -71,7 +71,8 @@ export default class Menu extends Component {
             </TouchableOpacity>
             <TouchableOpacity style={btnSignInStyle} onPress={this.clickLogOut.bind(this)}>
               <Text style={btnText}>Log out</Text>
-            </TouchableOpacity>
+          </TouchableOpacity>
+
           </View>
         </View>
     );
@@ -94,9 +95,9 @@ const styles = StyleSheet.create({
     alignItems:'center',
   },
   profile: {
-    width: 150,
-    height: 150,
-    borderRadius: 75,
+    width: 120,
+    height: 120,
+    borderRadius: 60,
     marginVertical:30,
   },
   btnStyle: {
@@ -105,20 +106,22 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal:60,
+    paddingHorizontal:70,
   },
   btnText: {
     color: '#34B089',
-    fontSize:20,
+    fontSize: 20,
+    fontFamily:"Avenir",
   },
   btnSignInStyle: {
     height: 50,
     borderRadius: 5,
     backgroundColor: '#FFF',
     justifyContent: 'center',
-    alignItems: 'center',
+    //alignItems: 'center',
     width:200,
-    marginBottom:10,
+    marginBottom: 10,
+    paddingLeft:10,
   },
   btnTextSignIn: {
     color: '#34B089',
@@ -132,6 +135,6 @@ const styles = StyleSheet.create({
   username: {
     color: "#FFF",
     fontFamily: 'Avenir',
-    fontSize: 20
+    fontSize: 15
   }
 })

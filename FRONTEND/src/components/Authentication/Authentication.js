@@ -1,32 +1,25 @@
 import React, { Component } from 'react';
 import {
   View, Text, TouchableOpacity, Image, StyleSheet,
-  Dimensions, TextInput, 
 } from 'react-native';
 
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
-
-import register from "../../api/register";
 import icBack from './../../Media/appIcon/back_white.png';
 import icLogo from './../../Media/appIcon/ic_logo.png';
 
 export default class Authentication extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isSignIn:true,
-    }
+    this.state = { isSignIn: true };
   }
 
   gotoSignIn() {
-    this.setState({isSignIn:true})
+    this.setState({ isSignIn: true });
   }
 
   signInTab() {
-    this.setState({
-      isSignIn: true
-    })
+    this.setState({ isSignIn: true });
   }
 
   signUpTab() {
@@ -35,7 +28,7 @@ export default class Authentication extends Component {
     })
   }
 
-  gobacktoMain(){
+  goBackToMain(){
     const {navigator} = this.props;
     navigator.pop();
   }
@@ -69,13 +62,14 @@ export default class Authentication extends Component {
       </View>
     );
 
-    const mainJSX = this.state.isSignIn ? <SignIn goBackToMain={this.goBackToMain.bind(this)} /> :<SignUp  gotoSignIn={this.gotoSignIn.bind(this)}/>;
-    const mainBtnJSX = this.state.isSignIn ? signInBtnJSX : signUpBtnJSX;
+    const { isSignIn } = this.state;
+    const mainJSX = isSignIn ? <SignIn goBackToMain={this.goBackToMain.bind(this)} /> :<SignUp  gotoSignIn={this.gotoSignIn.bind(this)}/>;
+    const mainBtnJSX = isSignIn ? signInBtnJSX : signUpBtnJSX;
 
     return(
       <View style={wrapper}>
         <View style={styles.row1}>
-            <TouchableOpacity onPress={this.gobacktoMain.bind(this)}>
+            <TouchableOpacity onPress={this.goBackToMain.bind(this)}>
               <Image source={icBack} style={iconStyle}/>
             </TouchableOpacity>
             <Text style={titleStyle}>Wearing a Dress</Text>

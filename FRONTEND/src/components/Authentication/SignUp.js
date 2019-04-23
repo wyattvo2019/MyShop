@@ -53,6 +53,7 @@ export default class SignUp extends Component {
       rePassword:"",
     })
   }
+  
   clickRegister() {
     const { email, name, password } = this.state;
     register(email, name, password)

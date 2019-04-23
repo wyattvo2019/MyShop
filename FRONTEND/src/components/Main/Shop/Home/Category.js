@@ -21,22 +21,25 @@ export default class Category extends Component{
   render() {
     const { types } = this.props;
     const { wrapper,imageStyle,textStyle,cateTitle } = styles;
+    const swiper = (
+      <Swiper showsButtons={true} width={imageWidth} height={imageHeight}>
+        {types.map(e => (
+          <TouchableOpacity onPress={this.gotoListProduct.bind(this)} key={e.id}>
+            <Image source={{uri:`${url}${e.image}` }} style={imageStyle}>
+              <Text style={cateTitle}>{e.name}</Text>
+            </Image>
+          </TouchableOpacity>
+        ))}
+      </Swiper>
+    )
     return (
       <View style={wrapper}>
         <View style={{ flex: 1 }}>
           <Text style={textStyle}>LIST OF CATEGORY</Text>
         </View>
         <View style={{ flex: 4 }}>
-          <Swiper showsButtons={true}>
-            {types.map(e => (
-              <TouchableOpacity onPress={this.gotoListProduct.bind(this)} key={e.id}>
-                <Image source={{uri:`${url}${e.image}` }} style={imageStyle}>
-                  <Text style={cateTitle}>{e.name}</Text>
-                </Image>
-              </TouchableOpacity>
-            ))}
-
-          </Swiper>
+            {types.length ? swiper : null}
+          
         </View>
       </View>
     )

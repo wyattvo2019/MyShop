@@ -3,8 +3,11 @@ import {
   View, Text, TouchableOpacity, Image, StyleSheet,
   TextInput,
 } from 'react-native'
-import signin from "../../api/signIn";
+import signIn from "../../api/signIn";
 import global from "../global";
+import saveToken from "../../api/getToken";
+import getToken from "../../api/getToken";
+
 
 export default class SignIn extends Component {
   constructor(props) {
@@ -15,12 +18,18 @@ export default class SignIn extends Component {
     };
   }
 
+  componentDidMount() {
+    getToken()
+      .then(a => console.log('TOKEN::::'+a));
+  }
+
   onSignIn() {
     const { email, password } = this.state;
-    signin(email, password)
+    signIn(email, password)
       .then(res =>{
         global.onSignIn(res.user);
         this.props.goBackToMain();
+        saveToken(res.token);
       }
       )
     .catch(err => console.log(err));
@@ -49,7 +58,9 @@ export default class SignIn extends Component {
           onChangeText={text => this.setState({password:text})}
         />
 
-        <TouchableOpacity  style={bigBtn} onPress={this.onSignIn.bind(this)}>
+        <TouchableOpacity
+          style={bigBtn}
+          onPress={this.onSignIn.bind(this)}>
           <Text style={textBtn}>Sign In Now</Text>
         </TouchableOpacity>
 
