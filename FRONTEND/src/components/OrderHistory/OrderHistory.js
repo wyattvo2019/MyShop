@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     View, TouchableOpacity, Text, Image, StyleSheet, Dimensions, ScrollView
 } from 'react-native';
-import backSpecial from '../../Media/appIcon/backs.png';
+import backSpecial from '../../media/appIcon/backs.png';
 
 export default class OrderHistory extends Component {
     constructor(props) {

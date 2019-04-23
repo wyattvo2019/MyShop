@@ -1,64 +1,42 @@
-
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity} from 'react-native';
+// import { View, Text, TouchableOpacity } from 'react-native';
+import Drawer from 'react-native-drawer';
+
 import Menu from './Menu';
 import Shop from './Shop/Shop';
-import Drawer from 'react-native-drawer';
+
 import checkLogin from '../../api/checkLogin';
-import getToken from "../../api/getToken";
-import global from "../global";
+import getToken from '../../api/getToken';
 import refreshToken from '../../api/refreshToken';
+import global from '../global';
 
 export default class Main extends Component {
-  componentDidMount() {
-    getToken()
-      .then(token => checkLogin(token))
-      .then(res => global.onSignIn(res.user))
-      .catch(err => console.log(err));
-    setInterval(() => {
-      getToken()
-      .then(token=>refreshToken());
-    }, 60 * 1000);
-  }
+    componentDidMount() {
+        getToken()
+        .then(token => checkLogin(token))
+        .then(res => global.onSignIn(res.user))
+        .catch(err => console.log('LOI CHECK LOGIN', err));
+    }
 
-  // gotoAuthentication(){
-  //   const {navigator} = this.props;
-  //   navigator.push({name: 'AUTHENTICATION'})
+    closeControlPanel = () => {
+        this.drawer.close();
+    };
 
-  // }
-  // gotoChangeInfo(){
-  //   const {navigator} = this.props;
-  //   navigator.push({name: 'CHANGE_INFO'})
-
-  // }
-  // gotoOrderHistory(){
-  //   const {navigator} = this.props;
-  //   navigator.push({name: 'ORDERHISTORY'})
-
-  // }
-  
-  closeControlPanel = () => {
-    this._drawer.close()
-  };
-
-  openControlPanel = () => {
-    this._drawer.open()
-  };
-
-
-  render(){
-    const {navigator} = this.props;
-    return(
-        <Drawer
-          ref={(ref) => this._drawer = ref}
-          tapToClose={true}
-          openDrawerOffset={0.1}
-          content={<Menu navigator={navigator} />}
-        >
-          <Shop open={this.openControlPanel.bind(this)} />
-        </Drawer>
-
-    );
-  }
+    openControlPanel = () => {
+        this.drawer.open();
+    };
+    
+    render() {
+        const { navigator } = this.props;
+        return (
+            <Drawer
+                ref={(ref) => { this.drawer = ref; }}
+                content={<Menu navigator={navigator} />}
+                openDrawerOffset={0.4}
+                tapToClose
+            >
+                <Shop open={this.openControlPanel.bind(this)} />
+            </Drawer>
+        );
+    }
 }
-

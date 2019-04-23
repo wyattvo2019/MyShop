@@ -1,78 +1,70 @@
-import React, { Component } from 'react'
-import {
-  View, Text, Image,
-  StyleSheet, Dimensions,
-  TouchableOpacity,
-} from 'react-native';
+import React, { Component } from 'react';
+import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import Swiper from 'react-native-swiper';
-import Constant from "../../../DatabaseConfig"
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
+const url = 'http://192.168.64.2/MyShop/api/images/type/';
 
-const url = "http://"+Constant.SERVER_IP+"/MyShop/api/images/type/";
-
-export default class Category extends Component{
-  
-  gotoListProduct() {
-    const { navigator } = this.props;
-    navigator.push({ name: 'LIST_PRODUCT' });
-  }
-  
-  render() {
-    const { types } = this.props;
-    const { wrapper,imageStyle,textStyle,cateTitle } = styles;
-    const swiper = (
-      <Swiper showsButtons={true} width={imageWidth} height={imageHeight}>
-        {types.map(e => (
-          <TouchableOpacity onPress={this.gotoListProduct.bind(this)} key={e.id}>
-            <Image source={{uri:`${url}${e.image}` }} style={imageStyle}>
-              <Text style={cateTitle}>{e.name}</Text>
-            </Image>
-          </TouchableOpacity>
-        ))}
-      </Swiper>
-    )
-    return (
-      <View style={wrapper}>
-        <View style={{ flex: 1 }}>
-          <Text style={textStyle}>LIST OF CATEGORY</Text>
-        </View>
-        <View style={{ flex: 4 }}>
-            {types.length ? swiper : null}
-          
-        </View>
-      </View>
-    )
-  }
+export default class Category extends Component {
+    gotoListProduct() {
+        const { navigator } = this.props;
+        navigator.push({ name: 'LIST_PRODUCT' });
+    }
+    render() {
+        const { types } = this.props;
+        const { wrapper, textStyle, imageStyle, cateTitle } = styles;
+        const swiper = (
+            <Swiper showsPagination width={imageWidth} height={imageHeight} >
+                { types.map(e => (
+                    <TouchableOpacity onPress={this.gotoListProduct.bind(this)} key={e.id}>
+                        <Image source={{ uri: `${url}${e.image}` }} style={imageStyle}>
+                            <Text style={cateTitle}>{e.name}</Text>
+                        </Image>
+                    </TouchableOpacity>
+                )) }
+            </Swiper>
+        );
+        return (
+            <View style={wrapper}>
+                <View style={{ justifyContent: 'center', height: 50 }}>
+                    <Text style={textStyle} >LIST OF CATEGORY</Text>
+                </View>
+                <View style={{ justifyContent: 'flex-end', flex: 4 }}>
+                    { types.length ? swiper : null }
+                </View>
+            </View>
+        );
+    }
 }
+//933 x 465
 const imageWidth = width - 40;
-const imageHeight = (imageWidth / 933) * 465;
+const imageHeight = imageWidth / 2;
+
 const styles = StyleSheet.create({
-  wrapper: {
-    height: height * 0.35,
-    backgroundColor: 'white',
-    margin: 10,
-    marginBottom: 5,
-    marginTop:5,
-    shadowColor: '#2E272B',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.2,
-    padding: 10,
-    paddingTop: 0
-  },
-  textStyle: {
-    fontSize: 20,
-    color:'#AFAEAF',
-  },
-  imageStyle: {
-    height: imageHeight,
-    width: imageWidth,
-    alignItems: 'center',
-    justifyContent:'center',
-  },
-  cateTitle: {
-    fontSize: 15,
-    fontFamily: 'Avenir',
-    color:'#9A9A9A',
-  }
-})
+    wrapper: {
+        width: width - 20,
+        backgroundColor: '#FFF',
+        margin: 10,
+        justifyContent: 'space-between',
+        shadowColor: '#2E272B',
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.2,
+        padding: 10,
+        paddingTop: 0
+    },
+    textStyle: {
+        fontSize: 20,
+        color: '#AFAEAF'
+    },
+    imageStyle: {
+        height: imageHeight,
+        width: imageWidth,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    cateTitle: {
+        fontSize: 20,
+        fontFamily: 'Avenir',
+        color: '#9A9A9A'
+    }
+});

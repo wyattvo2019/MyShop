@@ -2,28 +2,22 @@ import React, { Component } from 'react';
 import { 
     View, Text, StyleSheet, Image, Dimensions, ScrollView, TouchableOpacity 
 } from 'react-native';
+import global from '../../../global';
 
-import Constant from "../../../DatabaseConfig";
-import global  from '../../../global';
+const back = require('../../../../media/appIcon/back.png');
+const cart = require('../../../../media/appIcon/cartfull.png');
 
-
-const back = require('../../../../Media/appIcon/back.png');
-const cart = require('../../../../Media/appIcon/cartfull.png'); 
-const url = "http://" + Constant.SERVER_IP + "/MyShop/api/images/product/";
-
+const url = 'http://192.168.64.2/MyShop/api/images/product/';
 
 export default class ProductDetail extends Component {
-    
     goBack() {
         const { navigator } = this.props;
         navigator.pop();
     }
-
     addThisProductToCart() {
         const { product } = this.props;
         global.addProductToCart(product);
     }
-
     render() {
         const {
             wrapper, cardStyle, header,
@@ -32,9 +26,9 @@ export default class ProductDetail extends Component {
             textSmoke, textHighlight, textMain, titleContainer,
             descContainer, productImageStyle, descStyle, txtMaterial, txtColor
         } = styles;
-        const { name, id, price, color, material, description, images } = this.props.product;
+        const { name, price, color, material, description, images } = this.props.product;
         return (
-            <ScrollView style={wrapper}>
+            <View style={wrapper}>
                 <View style={cardStyle}>
                     <View style={header}>
                         <TouchableOpacity onPress={this.goBack.bind(this)}>
@@ -70,7 +64,7 @@ export default class ProductDetail extends Component {
                         </View>
                     </View>
                 </View>
-            </ScrollView>
+            </View>
         );
     }
 }
