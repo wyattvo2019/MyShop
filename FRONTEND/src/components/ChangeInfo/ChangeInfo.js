@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import {
-    View, TouchableOpacity, Text, Image, StyleSheet, TextInput
+    View, Alert, TouchableOpacity, Text, Image, StyleSheet, TextInput
 } from 'react-native';
 import backSpecial from '../../media/appIcon/backs.png';
-
+import getToken from "../../api/getToken";
+import  changeInfoApi from "../../api/changeInfoApi";
+import global from "../global";
 export default class ChangeInfo extends Component {
     constructor(props) {
         super(props);
@@ -14,12 +16,37 @@ export default class ChangeInfo extends Component {
             txtPhone: phone 
         };
     }
+
+
+
     goBackToMain() {
         const { navigator } = this.props;
         navigator.pop();
     }
 
-    render() {
+    alertSuccess() {
+        Alert.alert(
+            'Notice',
+            'Update Info successfully',
+            [
+                { text: 'OK', onPress: this.goBackToMain.bind(this) }
+            ],
+            { cancelable: false }
+        );
+    }
+
+    clickChangeInfo() {
+        const { txtName, txtPhone, txtAddress } = this.state;
+        getToken()
+        .then(token => changeInfoApi(token, txtName, txtPhone, txtAddress))
+            .then((user) => {
+                this.alertSuccess();
+                global.onSignIn(user);
+            })
+        .catch(err => console.log(err));
+    }
+
+    render(){
         const {
             wrapper, header, headerTitle, backIconStyle, body,
             signInContainer, signInTextStyle, textInput
@@ -59,7 +86,10 @@ export default class ChangeInfo extends Component {
                         onChangeText={text => this.setState({ ...this.state, txtPhone: text })}
                         underlineColorAndroid="transparent"
                     />
-                    <TouchableOpacity style={signInContainer}>
+                    <TouchableOpacity
+                        style={signInContainer}
+                        onPress={this.clickChangeInfo.bind(this)}
+                    >
                         <Text style={signInTextStyle}>CHANGE YOUR INFOMATION</Text>
                     </TouchableOpacity>
                 </View>

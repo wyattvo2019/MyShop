@@ -25,15 +25,18 @@ class Menu extends Component {
     gotoAuthentication() {
         const { navigator } = this.props;
         navigator.push({ name: 'AUTHENTICATION' });
-    }
+    } 
+
     gotoChangeInfo() {
         const { navigator } = this.props;
         navigator.push({ name: 'CHANGE_INFO', user: this.state.user });
     }
+
     gotoOrderHistory() {
         const { navigator } = this.props;
         navigator.push({ name: 'ORDER_HISTORY' });
     }
+    
     render() {
         const { 
             container, profile, btnStyle, btnText, 
