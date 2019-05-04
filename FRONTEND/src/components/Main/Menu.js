@@ -13,6 +13,7 @@ class Menu extends Component {
         this.state = { user: null };
         global.onSignIn = this.onSignIn.bind(this);
     }
+    
     onSignIn(user) {
         this.setState({ user });
     }
