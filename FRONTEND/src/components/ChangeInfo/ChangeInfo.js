@@ -1,31 +1,57 @@
 import React, { Component } from 'react';
 import {
-  View, TouchableOpacity,
-  Text, Image,
-  StyleSheet, TextInput
+    View, Alert, TouchableOpacity, Text, Image, StyleSheet, TextInput
 } from 'react-native';
-import backSpecial from '../../Media/appIcon/backs.png';
-
+import backSpecial from '../../media/appIcon/backs.png';
+import getToken from "../../api/getToken";
+import  changeInfoApi from "../../api/changeInfoApi";
+import global from "../global";
 export default class ChangeInfo extends Component {
     constructor(props) {
         super(props);
+        const { name, address, phone } = props.user;
         this.state = { 
-            txtName: 'Le Van A', 
-            txtAddress: '455 Haong Dieu', 
-            txtPhone: '01694472176' 
+            txtName: name, 
+            txtAddress: address, 
+            txtPhone: phone 
         };
     }
+
+
+
     goBackToMain() {
         const { navigator } = this.props;
         navigator.pop();
     }
 
-    render() {
+    alertSuccess() {
+        Alert.alert(
+            'Notice',
+            'Update Info successfully',
+            [
+                { text: 'OK', onPress: this.goBackToMain.bind(this) }
+            ],
+            { cancelable: false }
+        );
+    }
+
+    clickChangeInfo() {
+        const { txtName, txtPhone, txtAddress } = this.state;
+        getToken()
+        .then(token => changeInfoApi(token, txtName, txtPhone, txtAddress))
+            .then((user) => {
+                this.alertSuccess();
+                global.onSignIn(user);
+            })
+        .catch(err => console.log(err));
+    }
+
+    render(){
         const {
             wrapper, header, headerTitle, backIconStyle, body,
             signInContainer, signInTextStyle, textInput
         } = styles;
-        const { name, address, phone } = this.state;
+        const { txtName, txtAddress, txtPhone } = this.state;
         return (
             <View style={wrapper}>
                 <View style={header}>
@@ -40,24 +66,30 @@ export default class ChangeInfo extends Component {
                         style={textInput}
                         placeholder="Enter your name"
                         autoCapitalize="none"
-                        value={name}
-                        onChangeText={txtName => this.setState({ ...this.state, txtName })}
+                        value={txtName}
+                        onChangeText={text => this.setState({ ...this.state, txtName: text })}
+                        underlineColorAndroid="transparent"
                     />
                     <TextInput
                         style={textInput}
                         placeholder="Enter your address"
                         autoCapitalize="none"
-                        value={address}
-                        onChangeText={txtAddress => this.setState({ ...this.state, txtAddress })}
+                        value={txtAddress}
+                        onChangeText={text => this.setState({ ...this.state, txtAddress: text })}
+                        underlineColorAndroid="transparent"
                     />
                     <TextInput
                         style={textInput}
                         placeholder="Enter your phone number"
                         autoCapitalize="none"
-                        value={phone}
-                        onChangeText={txtPhone => this.setState({ ...this.state, txtPhone })}
+                        value={txtPhone}
+                        onChangeText={text => this.setState({ ...this.state, txtPhone: text })}
+                        underlineColorAndroid="transparent"
                     />
-                    <TouchableOpacity style={signInContainer}>
+                    <TouchableOpacity
+                        style={signInContainer}
+                        onPress={this.clickChangeInfo.bind(this)}
+                    >
                         <Text style={signInTextStyle}>CHANGE YOUR INFOMATION</Text>
                     </TouchableOpacity>
                 </View>
@@ -100,8 +132,3 @@ const styles = StyleSheet.create({
         marginTop: 50
     }
 });
-
-// goBackToMain() {
-//     const { navigator } = this.props;
-//     navigator.pop();
-// }

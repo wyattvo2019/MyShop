@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
-import map from '../../../../Media/appIcon/map.png';
+import map from '../../../../media/appIcon/map.png';
 
-import phoneIcon from '../../../../Media/appIcon/phone.png';
-import mailIcon from '../../../../Media/appIcon/mail.png';
-import messageIcon from '../../../../Media/appIcon/message.png';
-import locationIcon from '../../../../Media/appIcon/location.png';
+import phoneIcon from '../../../../media/appIcon/phone.png';
+import mailIcon from '../../../../media/appIcon/mail.png';
+import messageIcon from '../../../../media/appIcon/message.png';
+import locationIcon from '../../../../media/appIcon/location.png';
 
 class Contact extends Component {
     render() {
-        const { 
+        const {
             mapContainer, wrapper, infoContainer,
             rowInfoContainer, imageStyle, infoText
         } = styles;

@@ -1,3 +1,7 @@
-module.export = {
-  addProductToCart: null
+module.exports = {
+    addProductToCart: null,
+    incrQuantity: null,
+    decrQuantity: null,
+    removeProduct: null,
+    onSignIn: null
 };
