@@ -17,15 +17,19 @@ try{
 	}
 	else{
 		$email = $decoded->email;
-		$sql = "SELECT b.id, b.date_order, b.status, b.total FROM bill b INNER JOIN users u ON u.id=b.id_customer where u.email ='$email'";
-		$result = $mysqli->query($sql);
+		// echo($email);
+		// $sql = "SELECT b.id, b.date_order, b.status, b.total, u.email FROM bill b INNER JOIN users u ON u.id=b.id_customer where email ='$email'";
+		// $result = $mysqli->query($sql);
+		$result = $mysqli->query("SELECT b.id, b.date_order, b.status, b.total, u.email FROM bill b INNER JOIN users u ON u.id=b.id_customer where email ='$email'");
+		// // echo($result);
+		$bill = array();
 		while ($row = $result->fetch_object()){
-		    $bill[] = $row;
+				$bill[] = $row;
+				// array_push($bill,$email);
 		}
 		print_r(json_encode($bill));
 	}
 }
-
 catch(Exception $e){
 	echo 'LOI';
 }
