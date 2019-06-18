@@ -1,7 +1,6 @@
 <?php
-//search
+	//search
 	include('connect/connect.php');
-
 	if(isset($_GET['key']) && strlen($_GET['key'])>2){
 		$keyword = $_GET['key'];
 		$product = array();
@@ -9,10 +8,9 @@
 		while ($row = $products->fetch_object()){
 			$assignees = explode(',', $row->images);
 			$row->images = $assignees;
-		    $product[] = $row;
+		  $product[] = $row;
 		}
 		echo (json_encode($product));
-
 	}
 	else{
 		echo 'NHAP_TU_KHOA';
