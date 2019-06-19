@@ -10,7 +10,7 @@ const sendOrder = (token, arrayDetail) => (
       body: JSON.stringify({token,arrayDetail})
   })
     .then(res => {
-      console.log(res);
+      // console.log(res);
       return res.text();
     })
 );

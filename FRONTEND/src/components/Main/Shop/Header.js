@@ -5,10 +5,25 @@ import {
 
 import icLogo from '../../../media/appIcon/ic_logo.png';
 import icMenu from '../../../media/appIcon/ic_menu.png';
-
+import global from "../../global";
+import searchProduct from "../../../api/searchProduct";
 const { height } = Dimensions.get('window');
 
 export default class Header extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            txtSearch: "",
+        }
+    }
+
+    onSearch(){
+        const { txtSearch } = this.state;
+        searchProduct(txtSearch)
+        .then(arrProduct => console.log(arrProduct))
+        .catch(err => console.log(err));
+    }
+
     render() {
         const { wrapper, row1, textInput, iconStyle, titleStyle } = styles;
         return (
@@ -24,6 +39,9 @@ export default class Header extends Component {
                     style={textInput}
                     placeholder="What do you want to buy?"
                     underlineColorAndroid="transparent" 
+                    onFocus={() => global.gotoSearch()}
+                    onChangeText={text => this.setState({ txtSearch: text })}
+                    onSubmitEditing={this.onSearch.bind(this)}
                 />
             </View>
         );

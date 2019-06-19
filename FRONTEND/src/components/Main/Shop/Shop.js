@@ -21,6 +21,7 @@ import searchIcon from '../../../media/appIcon/search0.png';
 import contactIconS from '../../../media/appIcon/contact.png';
 import contactIcon from '../../../media/appIcon/contact0.png';
 
+
 class Shop extends Component {
     constructor(props) {
         super(props);
@@ -30,10 +31,11 @@ class Shop extends Component {
             topProducts: [],
             cartArray: [] 
         };
-        global.addProductToCart = this.addProductToCart.bind(this);
-        global.incrQuantity = this.incrQuantity.bind(this);
-        global.decrQuantity = this.decrQuantity.bind(this);
-        global.removeProduct = this.removeProduct.bind(this);
+        global.addProductToCart  = this.addProductToCart.bind(this);
+        global.incrQuantity         = this.incrQuantity.bind(this);
+        global.decrQuantity        = this.decrQuantity.bind(this);
+        global.removeProduct     = this.removeProduct.bind(this);
+        global.gotoSearch = this.gotoSearch.bind(this);
     }
 
     componentDidMount() {
@@ -44,6 +46,10 @@ class Shop extends Component {
         });
         getCart()
         .then(cartArray => this.setState({ cartArray }));
+    }
+
+    gotoSearch() {
+        this.setState({ selectedTab: 'search' });
     }
 
     addProductToCart(product) {
@@ -71,7 +77,8 @@ class Shop extends Component {
     decrQuantity(productId) {
         const newCart = this.state.cartArray.map(e => {
             if (e.product.id !== productId) return e;
-            return { product: e.product, quantity: e.quantity - 1 };
+            if (e.quantity - 1 >= 1) return { product: e.product, quantity: e.quantity - 1 };
+            return { product: e.product, quantity: 1};
         });
         this.setState({ cartArray: newCart }, 
             () => saveCart(this.state.cartArray)
