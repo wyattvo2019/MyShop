@@ -20,7 +20,7 @@ export default class Header extends Component {
     onSearch(){
         const { txtSearch } = this.state;
         searchProduct(txtSearch)
-        .then(arrProduct => console.log(arrProduct))
+        .then(arrProduct => global.setArraySearch(arrProduct))
         .catch(err => console.log(err));
     }
 

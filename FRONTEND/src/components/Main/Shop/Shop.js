@@ -120,7 +120,7 @@ class Shop extends Component {
                         onPress={() => this.setState({ selectedTab: 'cart' })}
                         renderIcon={() => <Image source={cartIcon} style={iconStyle} />}
                         renderSelectedIcon={() => <Image source={cartIconS} style={iconStyle} />}
-                        badgeText={cartArray.length}
+                        badgeText={cartArray.length > 0 ? String(cartArray.length) : null}
                         selectedTitleStyle={{ color: '#34B089', fontFamily: 'Avenir' }}
                     >
                         <Cart cartArray={cartArray} />

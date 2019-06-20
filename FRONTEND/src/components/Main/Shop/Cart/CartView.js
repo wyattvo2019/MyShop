@@ -88,9 +88,12 @@ class CartView extends Component {
                         </View>
                     )}
                 />
-                <TouchableOpacity style={checkoutButton} onPress={()=> this.onSendOrder()}>
+                {total > 0 ?
+                    <TouchableOpacity style={checkoutButton} onPress={()=> this.onSendOrder(total)}>
                     <Text style={checkoutTitle}>TOTAL {total}$ CHECKOUT NOW</Text>
-                </TouchableOpacity>
+                </TouchableOpacity>: <View/>
+                }
+                
             </View>
         );
     }

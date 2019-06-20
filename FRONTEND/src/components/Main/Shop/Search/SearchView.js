@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { 
     StyleSheet, Text, TouchableOpacity, ScrollView, View, Image, Dimensions, ListView,
 } from 'react-native';
-
+import global from "../../../global";
 import sp1 from '../../../../media/temp/sp3.jpeg';
 import sp4 from '../../../../media/temp/sp4.jpeg';
+const url = 'http://192.168.64.2/MyShop/api/images/product/';
 
 function toTitleCase(str) {
     return str.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
@@ -17,16 +18,19 @@ class SearchView extends Component {
         const ds = new ListView.DataSource({rowHasChanged: (r1,r2) => r1!== r2})
         this.state = {
             listProduct: ds,
-        }
+        };
+        global.setArraySearch = this.setSearchArray.bind(this);
     }
 
-    gotoDetail() {
+
+    gotoDetail(product) {
         const { navigator } = this.props;
-        navigator.push({ name: 'PRODUCT_DETAIL' });
+        navigator.push({ name: 'PRODUCT_DETAIL',product});
     }
+
 
     setSearchArray(arrProduct) {
-        this.setState({listProduct: this.setState.listProduct})
+        this.setState({ listProduct: this.state.listProduct.cloneWithRows(arrProduct) });
     }
     
 
@@ -40,35 +44,38 @@ class SearchView extends Component {
         } = styles;
 
         return (
-            <ListView
-                contentContainerStyle={wrapper}
-                dataSource={this.state.listProduct}
-                renderRow={productItem => (
-                    <View style={product}>
-                        <Image source={sp1} style={productImage} />
-                        <View style={mainRight}>
-                            <Text style={txtName}>{toTitleCase('black dress')}</Text>
-                            <Text style={txtPrice}>100$</Text>
-                            <Text style={txtMaterial}>Material Fur</Text>
-                            <View style={{ flexDirection: 'row' }} >
-                                <Text style={txtColor}>Color white</Text>
-                                <View
-                                    style={{
-                                        height: 15,
-                                        width: 15,
-                                        backgroundColor: 'white',
-                                        borderRadius: 15,
-                                        marginLeft: 10
-                                    }}
-                                />
+            <View style={wrapper}>
+                <ListView
+                    // contentContainerStyle={wrapper}
+                    enableEmptySection
+                    dataSource={this.state.listProduct}
+                    renderRow={productItem => (
+                        <View style={product}>
+                            <Image source={{ uri: `${url}${productItem.images[0]}` }} style={productImage} />
+                            <View style={mainRight}>
+                                <Text style={txtName}>{productItem.name}</Text>
+                                <Text style={txtPrice}>{productItem.price}$</Text>
+                                <Text style={txtMaterial}>Material {productItem.material}</Text>
+                                <View style={{ flexDirection: 'row' }} >
+                                    <Text style={txtColor}>Color {productItem.color}</Text>
+                                    <View
+                                        style={{
+                                            height: 15,
+                                            width: 15,
+                                            backgroundColor: productItem.color.toLowerCase(),
+                                            borderRadius: 15,
+                                            marginLeft: 10
+                                        }}
+                                    />
+                                </View>
+                                <TouchableOpacity style={showDetailContainer} onPress={()=> this.gotoDetail(productItem)}>
+                                    <Text style={txtShowDetail}>SHOW DETAILS</Text>
+                                </TouchableOpacity>
                             </View>
-                            <TouchableOpacity style={showDetailContainer}>
-                                <Text style={txtShowDetail}>SHOW DETAILS</Text>
-                            </TouchableOpacity>
                         </View>
-                    </View>
-                )}
-            />
+                    )}
+                    />
+            </View>
         );
     }
 }
