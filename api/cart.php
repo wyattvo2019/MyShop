@@ -27,7 +27,7 @@ try{
 			$id_sp = $value['id'];
 			$sanpham = $mysqli->query("select price from product where id=$id_sp");
 			$product = mysqli_fetch_assoc($sanpham);
-			$tongtien += $product['price'];
+			$tongtien += $product['price'] * $value['quantity'];
 		}
 		$todate = date('Y-m-d h:i:s');
 		$sql = "INSERT INTO bill(id_customer,date_order, total) VALUES ($id_user, '$todate', $tongtien)";

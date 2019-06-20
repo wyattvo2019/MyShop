@@ -20,7 +20,7 @@ try{
 		// echo($email);
 		// $sql = "SELECT b.id, b.date_order, b.status, b.total, u.email FROM bill b INNER JOIN users u ON u.id=b.id_customer where email ='$email'";
 		// $result = $mysqli->query($sql);
-		$result = $mysqli->query("SELECT b.id, b.date_order, b.status, b.total, u.email FROM bill b INNER JOIN users u ON u.id=b.id_customer where email ='$email'");
+		$result = $mysqli->query("SELECT b.id, b.date_order, b.status, b.total, u.email FROM bill b INNER JOIN users u ON u.id=b.id_customer where email ='$email' ORDER BY date_order DESC");
 		// // echo($result);
 		$bill = array();
 		while ($row = $result->fetch_object()){
